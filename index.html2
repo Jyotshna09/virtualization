@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaming Performance Benchmark</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        h1, h2 {
+            color: #ffcc00;
+        }
+        select, button, label {
+            margin: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+        select {
+            background-color: #333;
+            color: white;
+        }
+        button {
+            background-color: #ff5722;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #e64a19;
+        }
+        .container {
+            background: #282a36;
+            padding: 20px;
+            border-radius: 10px;
+            width: 50%;
+            margin: auto;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+        .metrics label {
+            display: block;
+            margin: 5px 0;
+        }
+        #results {
+            margin-top: 20px;
+            background: #44475a;
+            padding: 15px;
+            border-radius: 8px;
+            display: inline-block;
+            box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gaming Performance on Virtualized Environments</h1>
+        <label for="osSelect">Select Operating System:</label>
+        <select id="osSelect" onchange="resetAndUpdateBenchmark()">
+            <option value="Windows">Windows</option>
+            <option value="Linux">Linux</option>
+            <option value="MacOS">MacOS</option>
+        </select>
+        
+        <h2>Select Metrics to Display:</h2>
+        <div class="metrics">
+            <label><input type="checkbox" id="fpsCheck" onclick="updateBenchmark()"> FPS</label>
+            <label><input type="checkbox" id="latencyCheck" onclick="updateBenchmark()"> Latency</label>
+            <label><input type="checkbox" id="cpuCheck" onclick="updateBenchmark()"> CPU Usage</label>
+            <label><input type="checkbox" id="gpuCheck" onclick="updateBenchmark()"> GPU Usage</label>
+        </div>
+        
+        <div id="results">
+            <h2>Performance Results</h2>
+            <p id="fpsResult" style="display:none;"><strong>FPS:</strong> <span id="fps">N/A</span></p>
+            <p id="latencyResult" style="display:none;"><strong>Latency:</strong> <span id="latency">N/A</span> ms</p>
+            <p id="cpuResult" style="display:none;"><strong>CPU Usage:</strong> <span id="cpu">N/A</span>%</p>
+            <p id="gpuResult" style="display:none;"><strong>GPU Usage:</strong> <span id="gpu">N/A</span>%</p>
+        </div>
+    </div>
+    
+    <script>
+        function resetAndUpdateBenchmark() {
+            document.getElementById('fpsCheck').checked = false;
+            document.getElementById('latencyCheck').checked = false;
+            document.getElementById('cpuCheck').checked = false;
+            document.getElementById('gpuCheck').checked = false;
+            updateBenchmark();
+        }
+
+        function updateBenchmark() {
+            let os = document.getElementById('osSelect').value;
+            let fpsCheck = document.getElementById('fpsCheck').checked;
+            let latencyCheck = document.getElementById('latencyCheck').checked;
+            let cpuCheck = document.getElementById('cpuCheck').checked;
+            let gpuCheck = document.getElementById('gpuCheck').checked;
+            
+            document.getElementById('fpsResult').style.display = fpsCheck ? 'block' : 'none';
+            document.getElementById('latencyResult').style.display = latencyCheck ? 'block' : 'none';
+            document.getElementById('cpuResult').style.display = cpuCheck ? 'block' : 'none';
+            document.getElementById('gpuResult').style.display = gpuCheck ? 'block' : 'none';
+            
+            if (fpsCheck) document.getElementById('fps').innerText = os === 'Windows' ? '120' : os === 'Linux' ? '100' : '90';
+            if (latencyCheck) document.getElementById('latency').innerText = os === 'Windows' ? '10' : os === 'Linux' ? '15' : '20';
+            if (cpuCheck) document.getElementById('cpu').innerText = os === 'Windows' ? '40' : os === 'Linux' ? '35' : '50';
+            if (gpuCheck) document.getElementById('gpu').innerText = os === 'Windows' ? '60' : os === 'Linux' ? '55' : '65';
+        }
+    </script>
+</body>
+</html>
